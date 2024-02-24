@@ -1,4 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:taskify/home/home.dart';
+import 'package:taskify/shared/page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,13 +14,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      create: (context) => PageProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Taskify',
+        home: const Home(),
       ),
-      home: const Placeholder(),
     );
   }
 }
