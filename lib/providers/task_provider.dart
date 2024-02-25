@@ -64,7 +64,11 @@ class TaskProvider with ChangeNotifier {
       if (a.isCompleted.toString() != b.isCompleted.toString()) {
         return a.isCompleted ? 1 : -1;
       } else {
-        return a.endDate.compareTo(b.endDate);
+        if (a.category != b.category) {
+          return a.category == "Personal Task" ? -1 : 1;
+        } else {
+          return a.endDate.compareTo(b.endDate);
+        }
       }
     });
   }
