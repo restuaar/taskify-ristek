@@ -1,14 +1,12 @@
 class Task {
-  static List<Task> listTask = [];
-
-  final String title;
-  final String description;
-  final String startDate;
-  final String startTime;
-  final String endDate;
-  final String endTime;
-  final String category;
-  final bool isCompleted;
+  String title;
+  String description;
+  String startDate;
+  String startTime;
+  String endDate;
+  String endTime;
+  String category;
+  bool isCompleted;
 
   Task({
     required this.title,

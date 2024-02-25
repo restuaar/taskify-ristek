@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:taskify/home/screens/homepage.dart';
-import 'package:taskify/shared/page.dart';
+import 'package:taskify/screens/homepage.dart';
+import 'package:taskify/providers/page.dart';
 import 'package:taskify/shared/shared.dart';
 
 class Home extends StatefulWidget {

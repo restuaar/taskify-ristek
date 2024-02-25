@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taskify/shared/shared.dart';
-import 'package:taskify/todolist/model/task.dart';
-import 'package:taskify/todolist/widgets/categoryinput.dart';
-import 'package:taskify/todolist/widgets/labeltext.dart';
-import 'package:taskify/todolist/widgets/todolistbar.dart';
+import 'package:taskify/models/task.dart';
+import 'package:taskify/widgets/categoryinput.dart';
+import 'package:taskify/widgets/labeltext.dart';
+import 'package:taskify/widgets/todolistbar.dart';
 
 class EditTask extends StatefulWidget {
   final Task task;

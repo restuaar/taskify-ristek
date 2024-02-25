@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:taskify/home/home.dart';
-import 'package:taskify/shared/page.dart';
+import 'package:taskify/home.dart';
+import 'package:taskify/providers/page.dart';
+import 'package:taskify/providers/task_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +15,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => PageProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => PageProvider()),
+        ChangeNotifierProvider(create: (context) => TaskProvider())
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Taskify',
