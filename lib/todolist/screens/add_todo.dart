@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:taskify/shared/shared.dart';
+import 'package:taskify/todolist/model/task.dart';
 import 'package:taskify/todolist/widgets/categoryinput.dart';
 import 'package:taskify/todolist/widgets/labeltext.dart';
 import 'package:taskify/todolist/widgets/todolistbar.dart';
@@ -24,6 +25,8 @@ class _AddTaskState extends State<AddTask> {
   TextEditingController timeInputEnd = TextEditingController();
   TimeOfDay time = TimeOfDay.now();
   String _category = "Daily Task";
+  String _title = "";
+  String _description = "";
 
   @override
   void initState() {
@@ -71,7 +74,11 @@ class _AddTaskState extends State<AddTask> {
                               fontWeight: FontWeight.w500,
                               color: Colors.grey.shade800,
                             ),
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              setState(() {
+                                _title = value;
+                              });
+                            },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter the title of the task';
@@ -94,6 +101,9 @@ class _AddTaskState extends State<AddTask> {
                             decoration: inputDecoration(
                               hintText: "Enter the description of the task",
                             ),
+                            onChanged: (value) => setState(() {
+                              _description = value;
+                            }),
                           ),
                         ),
                         SizedBox(
@@ -293,7 +303,31 @@ class _AddTaskState extends State<AddTask> {
                             color: primaryColour,
                           ),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                Task newTask = Task(
+                                    title: _title,
+                                    description: _description,
+                                    startDate: dateInputStart.text,
+                                    startTime: timeInputStart.text,
+                                    endDate: dateInputEnd.text,
+                                    endTime: timeInputEnd.text,
+                                    category: _category,
+                                    isCompleted: false);
+
+                                Task.listTask.add(newTask);
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Task added successfully',
+                                      style: defaultText,
+                                    ),
+                                  ),
+                                );
+                                _formKey.currentState!.reset();
+                              }
+                            },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
                                 shadowColor: Colors.transparent,
@@ -302,7 +336,9 @@ class _AddTaskState extends State<AddTask> {
                             child: Text(
                               "Create Task",
                               style: defaultText.copyWith(
-                                  fontSize: 18, color: backgroundColour),
+                                fontSize: 18,
+                                color: backgroundColour,
+                              ),
                             ),
                           ),
                         ),
