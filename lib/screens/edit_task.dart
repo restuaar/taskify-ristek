@@ -2,13 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:taskify/providers/task_provider.dart';
 import 'package:taskify/shared/shared.dart';
 import 'package:taskify/models/task.dart';
-import 'package:taskify/widgets/categoryinput.dart';
 import 'package:taskify/widgets/labeltext.dart';
 import 'package:taskify/widgets/todolistbar.dart';
 
@@ -62,319 +60,366 @@ class _EditTaskState extends State<EditTask> {
                     ),
                     color: backgroundColour,
                   ),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(top: 28, left: 24, right: 24),
-                    child: Form(
-                      key: _formKeyEdit,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 28, left: 24, right: 24),
+                        child: Form(
+                          key: _formKeyEdit,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Spacer(),
-                              Text(task.title,
-                                  style: defaultText.copyWith(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: primaryColour)),
-                              Spacer(),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          LabelText(title: "Title"),
-                          Material(
-                            elevation: 1,
-                            borderRadius: BorderRadius.circular(10),
-                            child: TextFormField(
-                              initialValue: _title,
-                              decoration: inputDecoration(
-                                hintText: _title,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Spacer(),
+                                  Text(task.title,
+                                      style: defaultText.copyWith(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: primaryColour)),
+                                  Spacer(),
+                                ],
                               ),
-                              style: defaultText.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey.shade800,
+                              SizedBox(
+                                height: 16,
                               ),
-                              onChanged: (value) {
-                                setState(() {
-                                  _title = value;
-                                });
-                              },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter the title of the task';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          LabelText(title: "Description"),
-                          Material(
-                            elevation: 1,
-                            borderRadius: BorderRadius.circular(10),
-                            child: TextFormField(
-                              minLines: 4,
-                              maxLines: null,
-                              initialValue: _description,
-                              keyboardType: TextInputType.multiline,
-                              decoration: inputDecoration(
-                                hintText: task.description,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  _description = value;
-                                });
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          LabelText(title: "Category"),
-                          Material(
-                            elevation: 1,
-                            borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              height: 48,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: primaryColour,
+                              LabelText(title: "Title"),
+                              Material(
+                                elevation: 1,
                                 borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  task.category,
+                                child: TextFormField(
+                                  initialValue: _title,
+                                  decoration: inputDecoration(
+                                    hintText: _title,
+                                  ),
                                   style: defaultText.copyWith(
                                     fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: backgroundColour,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey.shade800,
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          LabelText(title: "Start"),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  controller: dateInputStart,
-                                  decoration: inputDecoration(
-                                    prefixIcon: CupertinoIcons.calendar,
-                                    hintText: dateInputStart.text,
-                                  ),
-                                  readOnly: true,
-                                  onTap: () async {
-                                    DateTime? pickedDate = await showDatePicker(
-                                      context: context,
-                                      initialDate:
-                                          DateTime.parse(dateInputStart.text),
-                                      firstDate: DateTime(2000),
-                                      lastDate: DateTime(2100),
-                                      initialEntryMode:
-                                          DatePickerEntryMode.calendar,
-                                      builder: (BuildContext context, child) {
-                                        return themeData(context, child);
-                                      },
-                                    );
-
-                                    if (pickedDate != null) {
-                                      String formattedDate =
-                                          DateFormat('MMM-d-y')
-                                              .format(pickedDate);
-                                      setState(() {
-                                        dateInputStart.text = formattedDate;
-                                      });
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _title = value;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter the title of the task';
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
                               SizedBox(
-                                width: 16,
+                                height: 16,
                               ),
-                              Expanded(
+                              LabelText(title: "Description"),
+                              Material(
+                                elevation: 1,
+                                borderRadius: BorderRadius.circular(10),
                                 child: TextFormField(
-                                  controller: timeInputStart,
+                                  minLines: 4,
+                                  maxLines: null,
+                                  initialValue: _description,
+                                  keyboardType: TextInputType.multiline,
                                   decoration: inputDecoration(
-                                    prefixIcon: CupertinoIcons.clock,
-                                    hintText: timeInputStart.text,
+                                    hintText: task.description,
                                   ),
-                                  readOnly: true,
-                                  onTap: () async {
-                                    TimeOfDay? pickedTime =
-                                        await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay(
-                                        hour: int.parse(timeInputStart.text
-                                            .substring(0, 2)),
-                                        minute: int.parse(timeInputStart.text
-                                            .substring(3, 5)),
-                                      ),
-                                      builder: (BuildContext context, child) {
-                                        return themeData(context, child);
-                                      },
-                                    );
-
-                                    if (pickedTime == null) {
-                                      return;
-                                    }
-
+                                  onChanged: (value) {
                                     setState(() {
-                                      timeInputStart.text =
-                                          convertTimeOfDay(pickedTime);
+                                      _description = value;
                                     });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          LabelText(title: "End"),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  controller: dateInputEnd,
-                                  decoration: inputDecoration(
-                                    prefixIcon: CupertinoIcons.calendar,
-                                    hintText: dateInputEnd.text,
-                                  ),
-                                  readOnly: true,
-                                  onTap: () async {
-                                    DateTime? pickedDate = await showDatePicker(
-                                      context: context,
-                                      initialDate:
-                                          DateTime.parse(dateInputEnd.text),
-                                      firstDate: DateTime(2000),
-                                      lastDate: DateTime(2100),
-                                      initialEntryMode:
-                                          DatePickerEntryMode.calendar,
-                                      builder: (BuildContext context, child) {
-                                        return themeData(context, child);
-                                      },
-                                    );
-
-                                    if (pickedDate != null) {
-                                      String formattedDate =
-                                          DateFormat('MMM-d-y')
-                                              .format(pickedDate);
-                                      setState(() {
-                                        dateInputEnd.text = formattedDate;
-                                      });
-                                    }
                                   },
                                 ),
                               ),
                               SizedBox(
-                                width: 16,
+                                height: 16,
                               ),
-                              Expanded(
-                                child: TextFormField(
-                                  controller: timeInputEnd,
-                                  decoration: inputDecoration(
-                                    prefixIcon: CupertinoIcons.clock,
-                                    hintText: "00:00",
+                              LabelText(title: "Category"),
+                              Material(
+                                elevation: 1,
+                                borderRadius: BorderRadius.circular(10),
+                                child: Container(
+                                  height: 48,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: primaryColour,
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                  readOnly: true,
-                                  onTap: () async {
-                                    TimeOfDay? pickedTime =
-                                        await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay(
-                                        hour: int.parse(
-                                            timeInputEnd.text.substring(0, 2)),
-                                        minute: int.parse(
-                                            timeInputEnd.text.substring(3, 5)),
-                                      ),
-                                      builder: (BuildContext context, child) {
-                                        return themeData(context, child);
-                                      },
-                                    );
-
-                                    if (pickedTime == null) {
-                                      return;
-                                    }
-
-                                    setState(() {
-                                      timeInputEnd.text =
-                                          convertTimeOfDay(pickedTime);
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 28,
-                          ),
-                          Container(
-                            height: 60,
-                            width: MediaQuery.of(context).size.width - 2 * 24,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: primaryColour,
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (_formKeyEdit.currentState!.validate()) {
-                                  Task updateTask = Task(
-                                    title: _title,
-                                    description: _description,
-                                    startDate: dateInputStart.text,
-                                    startTime: timeInputStart.text,
-                                    endDate: dateInputEnd.text,
-                                    endTime: timeInputEnd.text,
-                                    category: task.category,
-                                    isCompleted: task.isCompleted,
-                                  );
-
-                                  taskProvider.updateTask(
-                                    taskProvider.tasks.indexOf(task),
-                                    updateTask,
-                                  );
-
-                                  Navigator.pop(context);
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Task update successfully',
-                                        style: defaultText.copyWith(
-                                            fontSize: 16,
-                                            color: backgroundColour),
+                                  child: Center(
+                                    child: Text(
+                                      task.category,
+                                      style: defaultText.copyWith(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: backgroundColour,
                                       ),
                                     ),
-                                  );
-                                  _formKeyEdit.currentState!.reset();
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15))),
-                              child: Text(
-                                "Edit Task",
-                                style: defaultText.copyWith(
-                                    fontSize: 18, color: backgroundColour),
+                                  ),
+                                ),
                               ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              LabelText(title: "Start"),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: dateInputStart,
+                                      decoration: inputDecoration(
+                                        prefixIcon: CupertinoIcons.calendar,
+                                        hintText: dateInputStart.text,
+                                      ),
+                                      readOnly: true,
+                                      onTap: () async {
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.parse(
+                                              dateInputStart.text),
+                                          firstDate: DateTime(2000),
+                                          lastDate: DateTime(2100),
+                                          initialEntryMode:
+                                              DatePickerEntryMode.calendar,
+                                          builder:
+                                              (BuildContext context, child) {
+                                            return themeData(context, child);
+                                          },
+                                        );
+
+                                        if (pickedDate != null) {
+                                          String formattedDate =
+                                              DateFormat('MMM-d-y')
+                                                  .format(pickedDate);
+                                          setState(() {
+                                            dateInputStart.text = formattedDate;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 16,
+                                  ),
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: timeInputStart,
+                                      decoration: inputDecoration(
+                                        prefixIcon: CupertinoIcons.clock,
+                                        hintText: timeInputStart.text,
+                                      ),
+                                      readOnly: true,
+                                      onTap: () async {
+                                        TimeOfDay? pickedTime =
+                                            await showTimePicker(
+                                          context: context,
+                                          initialTime: TimeOfDay(
+                                            hour: int.parse(timeInputStart.text
+                                                .substring(0, 2)),
+                                            minute: int.parse(timeInputStart
+                                                .text
+                                                .substring(3, 5)),
+                                          ),
+                                          builder:
+                                              (BuildContext context, child) {
+                                            return themeData(context, child);
+                                          },
+                                        );
+
+                                        if (pickedTime == null) {
+                                          return;
+                                        }
+
+                                        setState(() {
+                                          timeInputStart.text =
+                                              convertTimeOfDay(pickedTime);
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              LabelText(title: "End"),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: dateInputEnd,
+                                      decoration: inputDecoration(
+                                        prefixIcon: CupertinoIcons.calendar,
+                                        hintText: dateInputEnd.text,
+                                      ),
+                                      readOnly: true,
+                                      onTap: () async {
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
+                                          context: context,
+                                          initialDate:
+                                              DateTime.parse(dateInputEnd.text),
+                                          firstDate: DateTime(2000),
+                                          lastDate: DateTime(2100),
+                                          initialEntryMode:
+                                              DatePickerEntryMode.calendar,
+                                          builder:
+                                              (BuildContext context, child) {
+                                            return themeData(context, child);
+                                          },
+                                        );
+
+                                        if (pickedDate != null) {
+                                          String formattedDate =
+                                              DateFormat('MMM-d-y')
+                                                  .format(pickedDate);
+                                          setState(() {
+                                            dateInputEnd.text = formattedDate;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 16,
+                                  ),
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: timeInputEnd,
+                                      decoration: inputDecoration(
+                                        prefixIcon: CupertinoIcons.clock,
+                                        hintText: "00:00",
+                                      ),
+                                      readOnly: true,
+                                      onTap: () async {
+                                        TimeOfDay? pickedTime =
+                                            await showTimePicker(
+                                          context: context,
+                                          initialTime: TimeOfDay(
+                                            hour: int.parse(timeInputEnd.text
+                                                .substring(0, 2)),
+                                            minute: int.parse(timeInputEnd.text
+                                                .substring(3, 5)),
+                                          ),
+                                          builder:
+                                              (BuildContext context, child) {
+                                            return themeData(context, child);
+                                          },
+                                        );
+
+                                        if (pickedTime == null) {
+                                          return;
+                                        }
+
+                                        setState(() {
+                                          timeInputEnd.text =
+                                              convertTimeOfDay(pickedTime);
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 28,
+                              ),
+                              Container(
+                                height: 60,
+                                width:
+                                    MediaQuery.of(context).size.width - 2 * 24,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: primaryColour,
+                                ),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (_formKeyEdit.currentState!.validate()) {
+                                      Task updateTask = Task(
+                                        title: _title,
+                                        description: _description,
+                                        startDate: dateInputStart.text,
+                                        startTime: timeInputStart.text,
+                                        endDate: dateInputEnd.text,
+                                        endTime: timeInputEnd.text,
+                                        category: task.category,
+                                        isCompleted: task.isCompleted,
+                                      );
+
+                                      taskProvider.updateTask(
+                                        taskProvider.tasks.indexOf(task),
+                                        updateTask,
+                                      );
+
+                                      Navigator.pop(context);
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Task update successfully',
+                                            style: defaultText.copyWith(
+                                                fontSize: 16,
+                                                color: backgroundColour),
+                                          ),
+                                        ),
+                                      );
+                                      _formKeyEdit.currentState!.reset();
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      shadowColor: Colors.transparent,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15))),
+                                  child: Text(
+                                    "Edit Task",
+                                    style: defaultText.copyWith(
+                                        fontSize: 18, color: backgroundColour),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        right: 20,
+                        top: 20,
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.red.shade400,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              taskProvider
+                                  .deleteTask(taskProvider.tasks.indexOf(task));
+                              Navigator.pop(context);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Task deleted successfully',
+                                    style: defaultText.copyWith(
+                                        fontSize: 16, color: backgroundColour),
+                                  ),
+                                ),
+                              );
+                            },
+                            icon: Icon(
+                              Icons.delete,
+                              color: backgroundColour,
+                              size: 18,
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ],
