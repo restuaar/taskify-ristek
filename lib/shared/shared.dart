@@ -59,6 +59,12 @@ InputDecoration inputDecoration({hintText, labelText, prefixIcon}) {
   );
 }
 
+String convertTimeOfDay(TimeOfDay time) {
+  String formattedTime =
+      '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+  return formattedTime;
+}
+
 Theme themeData(BuildContext context, child) {
   return Theme(
     data: Theme.of(context).copyWith(

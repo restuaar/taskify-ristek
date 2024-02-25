@@ -2,48 +2,41 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:taskify/shared/shared.dart';
+import 'package:taskify/todolist/model/task.dart';
 import 'package:taskify/todolist/widgets/categoryinput.dart';
 import 'package:taskify/todolist/widgets/labeltext.dart';
 import 'package:taskify/todolist/widgets/todolistbar.dart';
 
-class AddTask extends StatefulWidget {
-  const AddTask({super.key});
+class EditTask extends StatefulWidget {
+  final Task task;
+  const EditTask({super.key, required this.task});
 
   @override
-  State<AddTask> createState() => _AddTaskState();
+  State<EditTask> createState() => _EditTaskState();
 }
 
-class _AddTaskState extends State<AddTask> {
+class _EditTaskState extends State<EditTask> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController dateInputStart = TextEditingController();
   TextEditingController dateInputEnd = TextEditingController();
   TextEditingController timeInputStart = TextEditingController();
   TextEditingController timeInputEnd = TextEditingController();
   TimeOfDay time = TimeOfDay.now();
-  String _category = "Daily Task";
-
-  @override
-  void initState() {
-    super.initState();
-    dateInputStart.text = DateFormat('MMM-d-y').format(DateTime.now());
-    dateInputEnd.text = DateFormat('MMM-d-y').format(DateTime.now());
-  }
-
-  String convertTimeOfDay(TimeOfDay time) {
-    String formattedTime =
-        '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
-    return formattedTime;
-  }
 
   @override
   Widget build(BuildContext context) {
+    Task task = widget.task;
+    dateInputStart.text = task.startDate;
+    dateInputEnd.text = task.endDate;
+    timeInputStart.text = task.startTime;
+    timeInputEnd.text = task.endTime;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: primaryColour,
-        appBar: AppBarToDoList.buildAppBar(context, "Add Task"),
+        appBar: AppBarToDoList.buildAppBar(context, "Edit Task"),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -64,13 +57,26 @@ class _AddTaskState extends State<AddTask> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Spacer(),
+                            Text(task.title,
+                                style: defaultText.copyWith(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: primaryColour)),
+                            Spacer(),
+                          ],
+                        ),
                         LabelText(title: "Title"),
                         Material(
                           elevation: 1,
                           borderRadius: BorderRadius.circular(10),
                           child: TextFormField(
+                            initialValue: task.title,
                             decoration: inputDecoration(
-                              hintText: 'Enter the title of the task',
+                              hintText: task.title,
                             ),
                             style: defaultText.copyWith(
                               fontSize: 16,
@@ -96,9 +102,10 @@ class _AddTaskState extends State<AddTask> {
                           child: TextFormField(
                             minLines: 4,
                             maxLines: null,
+                            initialValue: task.description,
                             keyboardType: TextInputType.multiline,
                             decoration: inputDecoration(
-                              hintText: "Enter the description of the task",
+                              hintText: task.description,
                             ),
                           ),
                         ),
@@ -106,45 +113,30 @@ class _AddTaskState extends State<AddTask> {
                           height: 16,
                         ),
                         LabelText(title: "Category"),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                splashColor: primaryColour.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(8),
-                                onTap: () {
-                                  setState(() {
-                                    _category = "Personal Task";
-                                  });
-                                },
-                                child: CategoryInput(
-                                  text: "Personal Task",
-                                  category: _category,
-                                ),
+                        if (task.category == "Daily Task")
+                          Expanded(
+                            child: InkWell(
+                              splashColor: primaryColour.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(8),
+                              child: CategoryInput(
+                                text: "Daily Task",
+                                category: "Daily Task",
                               ),
                             ),
-                            SizedBox(
-                              width: 16,
-                            ),
-                            Expanded(
-                              child: InkWell(
-                                splashColor: primaryColour.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(8),
-                                onTap: () {
-                                  setState(() {
-                                    _category = "Daily Task";
-                                  });
-                                },
-                                child: CategoryInput(
-                                  text: "Daily Task",
-                                  category: _category,
-                                ),
+                          ),
+                        if (task.category == "Personal Task")
+                          Expanded(
+                            child: InkWell(
+                              splashColor: primaryColour.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(8),
+                              child: CategoryInput(
+                                text: "Personal Task",
+                                category: "Personal Task",
                               ),
                             ),
-                          ],
-                        ),
+                          ),
                         SizedBox(
-                          height: 16,
+                          width: 16,
                         ),
                         LabelText(title: "Start"),
                         Row(
@@ -160,7 +152,8 @@ class _AddTaskState extends State<AddTask> {
                                 onTap: () async {
                                   DateTime? pickedDate = await showDatePicker(
                                     context: context,
-                                    initialDate: DateTime.now(),
+                                    initialDate:
+                                        DateTime.parse(dateInputStart.text),
                                     firstDate: DateTime(2000),
                                     lastDate: DateTime(2100),
                                     initialEntryMode:
@@ -188,28 +181,30 @@ class _AddTaskState extends State<AddTask> {
                                 controller: timeInputStart,
                                 decoration: inputDecoration(
                                   prefixIcon: CupertinoIcons.clock,
-                                  hintText: "00:00",
+                                  hintText: timeInputStart.text,
                                 ),
                                 readOnly: true,
                                 onTap: () async {
                                   TimeOfDay? pickedTime = await showTimePicker(
                                     context: context,
-                                    initialTime: time,
+                                    initialTime: TimeOfDay(
+                                      hour: int.parse(
+                                          timeInputStart.text.substring(0, 2)),
+                                      minute: int.parse(
+                                          timeInputStart.text.substring(3, 5)),
+                                    ),
                                     builder: (BuildContext context, child) {
                                       return themeData(context, child);
                                     },
                                   );
 
-                                  if (pickedTime == null ||
-                                      pickedTime == time) {
-                                    timeInputStart.text = "00:00";
+                                  if (pickedTime == null) {
                                     return;
                                   }
 
                                   setState(() {
-                                    time = pickedTime;
                                     timeInputStart.text =
-                                        convertTimeOfDay(time);
+                                        convertTimeOfDay(pickedTime);
                                   });
                                 },
                               ),
@@ -233,7 +228,8 @@ class _AddTaskState extends State<AddTask> {
                                 onTap: () async {
                                   DateTime? pickedDate = await showDatePicker(
                                     context: context,
-                                    initialDate: DateTime.now(),
+                                    initialDate:
+                                        DateTime.parse(dateInputEnd.text),
                                     firstDate: DateTime(2000),
                                     lastDate: DateTime(2100),
                                     initialEntryMode:
@@ -267,21 +263,23 @@ class _AddTaskState extends State<AddTask> {
                                 onTap: () async {
                                   TimeOfDay? pickedTime = await showTimePicker(
                                     context: context,
-                                    initialTime: time,
+                                    initialTime: TimeOfDay(
+                                      hour: int.parse(
+                                          timeInputEnd.text.substring(0, 2)),
+                                      minute: int.parse(
+                                          timeInputEnd.text.substring(3, 5)),
+                                    ),
                                     builder: (BuildContext context, child) {
                                       return themeData(context, child);
                                     },
                                   );
 
-                                  if (pickedTime == null ||
-                                      pickedTime == time) {
-                                    timeInputEnd.text = "00:00";
+                                  if (pickedTime == null) {
                                     return;
                                   }
 
                                   setState(() {
-                                    time = pickedTime;
-                                    timeInputEnd.text = convertTimeOfDay(time);
+                                    timeInputEnd.text = convertTimeOfDay(pickedTime);
                                   });
                                 },
                               ),
@@ -306,7 +304,7 @@ class _AddTaskState extends State<AddTask> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
                             child: Text(
-                              "Create Task",
+                              "Edit Task",
                               style: defaultText.copyWith(
                                   fontSize: 18, color: backgroundColour),
                             ),

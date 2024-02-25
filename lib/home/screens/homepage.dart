@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:taskify/home/widgets/appbar.dart';
 import 'package:taskify/shared/shared.dart';
-import 'package:taskify/todolist/pages/add_todo.dart';
+import 'package:taskify/todolist/screens/add_todo.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
