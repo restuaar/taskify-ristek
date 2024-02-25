@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+double mediaQueryHeight(BuildContext context) {
+  return MediaQuery.of(context).size.height;
+}
+
+double mediaQueryWidth(BuildContext context) {
+  return MediaQuery.of(context).size.width;
+}
+
 Color backgroundColour = const Color(0xFFFFFFFF);
 Color primaryColour = const Color(0xFF5038BC);
 Color ghostColour = const Color(0xFF5038BC).withOpacity(0.16);

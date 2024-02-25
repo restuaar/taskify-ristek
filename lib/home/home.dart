@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: primaryColour.withOpacity(0.3),
+                color: primaryColour.withOpacity(0.15),
                 spreadRadius: 5,
                 blurRadius: 20,
               )

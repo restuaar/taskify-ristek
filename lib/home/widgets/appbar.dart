@@ -8,35 +8,44 @@ class MyAppBar {
     DateTime date = DateTime(now.year, now.month, now.day);
     String formattedDate = DateFormat('EEEE, MMM d y').format(date);
     return AppBar(
+      toolbarHeight: 80,
       backgroundColor: backgroundColour,
       elevation: 0,
-      title: ListTile(
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Image.asset(
-            'assets/images/logo.png',
-            height: 50,
-          ),
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: primaryColour.withOpacity(0.1),
+              spreadRadius: 5,
+              blurRadius: 20,
+            )
+          ],
+          color: backgroundColour,
         ),
-        title: Text(
-          'Taskify',
-          style: defaultText.copyWith(
-            fontSize: 24,
-            fontWeight: FontWeight.w900,
+        child: ListTile(
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.asset(
+              'assets/images/logo.png',
+              height: 50,
+            ),
           ),
-        ),
-        subtitle: Text(
-          formattedDate,
-          style: defaultText.copyWith(
+          title: Text(
+            'Taskify',
+            style: defaultText.copyWith(
+              fontSize: 24,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          subtitle: Text(
+            formattedDate,
+            style: defaultText.copyWith(
               fontSize: 12,
               fontWeight: FontWeight.w300,
-              color: Colors.grey.shade700),
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10.0),
-          child: ClipRRect(
+              color: Colors.grey.shade700,
+            ),
+          ),
+          trailing: ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Material(
               child: InkWell(
@@ -51,8 +60,9 @@ class MyAppBar {
               ),
             ),
           ),
-        )
-      ],
+        ),
+      ),
+      actions: const [SizedBox(width: 1)],
     );
   }
 }
