@@ -325,11 +325,15 @@ class _AddTaskState extends State<AddTask> {
 
                                   taskProvider.addTask(newTask);
 
+                                  Navigator.pop(context);
+
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
                                         'Task added successfully',
-                                        style: defaultText,
+                                        style: defaultText.copyWith(
+                                            fontSize: 16,
+                                            color: backgroundColour),
                                       ),
                                     ),
                                   );
