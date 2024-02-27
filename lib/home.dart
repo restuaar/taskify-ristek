@@ -6,7 +6,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:taskify/screens/homepage.dart';
 import 'package:taskify/providers/page.dart';
-import 'package:taskify/shared/shared.dart';
+import 'package:taskify/utils/shared.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,46 +28,48 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Consumer<PageProvider>(
-      builder: (context, pageProvider, child) => Scaffold(
-        body: Center(
-          child: _pageOptions.elementAt(pageProvider.page),
-        ),
-        bottomNavigationBar: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 30,
-            vertical: 15,
+      builder: (context, pageProvider, child) => SafeArea(
+        child: Scaffold(
+          body: Center(
+            child: _pageOptions.elementAt(pageProvider.page),
           ),
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: primaryColour.withOpacity(0.15),
-                spreadRadius: 5,
-                blurRadius: 20,
-              )
-            ],
-            color: backgroundColour,
-          ),
-          child: GNav(
-            backgroundColor: backgroundColour,
-            activeColor: primaryColour,
-            gap: 8,
-            selectedIndex: pageProvider.page,
-            onTabChange: (index) {
-              pageProvider.setPage(index);
-              setState(() {
-                _activeIndex = index;
-              });
-            },
-            tabs: [
-              gButton(icon: [
-                Icons.home_filled,
-                Icons.home_filled,
-              ], text: "Home"),
-              gButton(icon: [
-                CupertinoIcons.person,
-                CupertinoIcons.person_fill,
-              ], text: "Profile"),
-            ],
+          bottomNavigationBar: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 30,
+              vertical: 15,
+            ),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: primaryColour.withOpacity(0.15),
+                  spreadRadius: 5,
+                  blurRadius: 20,
+                )
+              ],
+              color: backgroundColour,
+            ),
+            child: GNav(
+              backgroundColor: backgroundColour,
+              activeColor: primaryColour,
+              gap: 8,
+              selectedIndex: pageProvider.page,
+              onTabChange: (index) {
+                pageProvider.setPage(index);
+                setState(() {
+                  _activeIndex = index;
+                });
+              },
+              tabs: [
+                gButton(icon: [
+                  Icons.home_filled,
+                  Icons.home_filled,
+                ], text: "Home"),
+                gButton(icon: [
+                  CupertinoIcons.person,
+                  CupertinoIcons.person_fill,
+                ], text: "Profile"),
+              ],
+            ),
           ),
         ),
       ),

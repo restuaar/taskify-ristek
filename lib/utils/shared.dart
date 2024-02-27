@@ -14,16 +14,16 @@ Color primaryColour = const Color(0xFF5038BC);
 Color ghostColour = const Color(0xFF5038BC).withOpacity(0.16);
 Color blackColour = const Color(0xFF000000);
 
-Gradient gradient = const LinearGradient(
-  colors: [
-    Color(0xffe9cf25),
-    Color(0xffdda90e),
-    Color(0xffbe7521),
-    Color(0xff995507)
-  ],
-  begin: Alignment.centerLeft,
-  end: Alignment.centerRight,
-);
+// Gradient gradient = const LinearGradient(
+//   colors: [
+//     Color(0xffe9cf25),
+//     Color(0xffdda90e),
+//     Color(0xffbe7521),
+//     Color(0xff995507)
+//   ],
+//   begin: Alignment.centerLeft,
+//   end: Alignment.centerRight,
+// );
 
 TextStyle defaultText = GoogleFonts.poppins(
     fontSize: 16, color: blackColour, fontWeight: FontWeight.w500);

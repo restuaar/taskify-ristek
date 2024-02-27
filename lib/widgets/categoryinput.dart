@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskify/shared/shared.dart';
+import 'package:taskify/utils/shared.dart';
 
 class CategoryInput extends StatelessWidget {
   final String category;

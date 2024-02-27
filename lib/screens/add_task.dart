@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:taskify/providers/task_provider.dart';
-import 'package:taskify/shared/shared.dart';
+import 'package:taskify/utils/shared.dart';
 import 'package:taskify/models/task.dart';
 import 'package:taskify/widgets/categoryinput.dart';
 import 'package:taskify/widgets/labeltext.dart';

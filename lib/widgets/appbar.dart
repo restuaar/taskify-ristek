@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:taskify/shared/shared.dart';
+import 'package:taskify/utils/shared.dart';
 
 class MyAppBar {
   static AppBar buildAppBar() {
