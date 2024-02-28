@@ -10,11 +10,8 @@ import 'package:taskify/providers/task_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  var box = await Hive.openBox('taskify');
+  await Hive.openBox('taskify');
 
-  box.put('name', 'David');
-
-  print('Name: ${box.get('name')}');
   runApp(const MyApp());
 }
 

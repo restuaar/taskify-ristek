@@ -111,6 +111,28 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 24),
               Consumer<TaskProvider>(builder: (context, taskProvider, child) {
+                if (taskProvider.tasks.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/images/empty.png",
+                          height: mediaQueryHeight(context) * 0.5,
+                        ),
+                        Text(
+                          "No tasks added yet!",
+                          style: defaultText.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
                 return ListView.builder(
                   itemCount: taskProvider.tasks.length,
                   shrinkWrap: true,
