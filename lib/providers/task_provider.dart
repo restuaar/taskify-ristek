@@ -27,8 +27,8 @@ class TaskProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteTask(int index) {
-    _tasks.removeAt(index);
+  void deleteTask(Task task) {
+    _tasks.remove(task);
     sortTasks();
     notifyListeners();
   }

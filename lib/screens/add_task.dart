@@ -34,6 +34,8 @@ class _AddTaskState extends State<AddTask> {
     super.initState();
     dateInputStart.text = DateFormat('MMM-d-y').format(DateTime.now());
     dateInputEnd.text = DateFormat('MMM-d-y').format(DateTime.now());
+    timeInputStart.text = "00:00";
+    timeInputEnd.text = "00:00";
   }
 
   @override
@@ -67,8 +69,8 @@ class _AddTaskState extends State<AddTask> {
                     color: backgroundColour,
                   ),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 32),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -219,8 +221,7 @@ class _AddTaskState extends State<AddTask> {
                                       },
                                     );
 
-                                    if (pickedTime == null ||
-                                        pickedTime == time) {
+                                    if (pickedTime == null) {
                                       timeInputStart.text = "00:00";
                                       return;
                                     }
@@ -294,8 +295,7 @@ class _AddTaskState extends State<AddTask> {
                                       },
                                     );
 
-                                    if (pickedTime == null ||
-                                        pickedTime == time) {
+                                    if (pickedTime == null) {
                                       timeInputEnd.text = "00:00";
                                       return;
                                     }

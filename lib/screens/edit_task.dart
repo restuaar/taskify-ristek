@@ -74,7 +74,7 @@ class _EditTaskState extends State<EditTask> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 32),
+                            horizontal: 24, vertical: 24),
                         child: Form(
                           key: _formKeyEdit,
                           child: Column(
@@ -408,8 +408,7 @@ class _EditTaskState extends State<EditTask> {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              taskProvider
-                                  .deleteTask(taskProvider.tasks.indexOf(task));
+                              taskProvider.deleteTask(task);
                               Navigator.pop(context);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

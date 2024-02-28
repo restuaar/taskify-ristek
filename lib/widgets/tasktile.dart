@@ -121,14 +121,11 @@ class _TaskTileState extends State<TaskTile> {
                                       thickness: 1.6,
                                     ),
                                     Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          "Start: ",
-                                          style: defaultText.copyWith(
-                                            fontSize: 12,
-                                            color: Colors.grey.shade600,
-                                          ),
-                                        ),
                                         Text(
                                           "${widget.task.startDate} ${widget.task.startTime}",
                                           style: defaultText.copyWith(
@@ -136,16 +133,24 @@ class _TaskTileState extends State<TaskTile> {
                                             color: primaryColour,
                                           ),
                                         ),
-                                        const Spacer(),
                                         Text(
-                                          "End: ",
+                                          " - ",
                                           style: defaultText.copyWith(
                                             fontSize: 12,
-                                            color: Colors.grey.shade600,
+                                            color: primaryColour,
                                           ),
                                         ),
+                                        if (widget.task.endDate !=
+                                            widget.task.startDate)
+                                          Text(
+                                            widget.task.endDate,
+                                            style: defaultText.copyWith(
+                                              fontSize: 12,
+                                              color: primaryColour,
+                                            ),
+                                          ),
                                         Text(
-                                          "${widget.task.endDate} ${widget.task.endTime}",
+                                          widget.task.endTime,
                                           style: defaultText.copyWith(
                                             fontSize: 12,
                                             color: primaryColour,
