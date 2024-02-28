@@ -6,6 +6,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:taskify/screens/homepage.dart';
 import 'package:taskify/providers/page.dart';
+import 'package:taskify/screens/profile.dart';
 import 'package:taskify/utils/shared.dart';
 
 class Home extends StatefulWidget {
@@ -20,9 +21,7 @@ class _HomeState extends State<Home> {
 
   static final List<Widget> _pageOptions = <Widget>[
     HomePage(),
-    Center(
-      child: Text('Settings'),
-    ),
+    ProfilePage(),
   ];
 
   @override

@@ -47,12 +47,22 @@ class _EditTaskState extends State<EditTask> {
         builder: (context, taskProvider, child) => Scaffold(
           backgroundColor: primaryColour,
           appBar: AppBarToDoList.buildAppBar(context, "Edit Task"),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
+          body: Stack(
+            children: [
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.elliptical(64, 46),
+                    topRight: Radius.elliptical(64, 46),
+                  ),
+                  color: backgroundColour,
+                ),
+              ),
+              SingleChildScrollView(
+                child: Container(
                   width: double.infinity,
-                  height: mediaQueryHeight(context) - 60,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.elliptical(64, 46),
@@ -63,8 +73,8 @@ class _EditTaskState extends State<EditTask> {
                   child: Stack(
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(top: 28, left: 24, right: 24),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 32),
                         child: Form(
                           key: _formKeyEdit,
                           child: Column(
@@ -422,8 +432,8 @@ class _EditTaskState extends State<EditTask> {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

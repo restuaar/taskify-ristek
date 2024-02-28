@@ -43,12 +43,22 @@ class _AddTaskState extends State<AddTask> {
         builder: (context, taskProvider, child) => Scaffold(
           backgroundColor: primaryColour,
           appBar: AppBarToDoList.buildAppBar(context, "Add Task"),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
+          body: Stack(
+            children: [
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.elliptical(64, 46),
+                    topRight: Radius.elliptical(64, 46),
+                  ),
+                  color: backgroundColour,
+                ),
+              ),
+              SingleChildScrollView(
+                child: Container(
                   width: double.infinity,
-                  height: mediaQueryHeight(context) - 100,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.elliptical(64, 46),
@@ -58,7 +68,7 @@ class _AddTaskState extends State<AddTask> {
                   ),
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(top: 32, left: 24, right: 24),
+                        const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -359,8 +369,8 @@ class _AddTaskState extends State<AddTask> {
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

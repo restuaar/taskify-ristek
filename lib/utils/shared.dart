@@ -14,21 +14,11 @@ Color primaryColour = const Color(0xFF5038BC);
 Color ghostColour = const Color(0xFF5038BC).withOpacity(0.16);
 Color blackColour = const Color(0xFF000000);
 
-// Gradient gradient = const LinearGradient(
-//   colors: [
-//     Color(0xffe9cf25),
-//     Color(0xffdda90e),
-//     Color(0xffbe7521),
-//     Color(0xff995507)
-//   ],
-//   begin: Alignment.centerLeft,
-//   end: Alignment.centerRight,
-// );
-
 TextStyle defaultText = GoogleFonts.poppins(
     fontSize: 16, color: blackColour, fontWeight: FontWeight.w500);
 
-InputDecoration inputDecoration({hintText, labelText, prefixIcon}) {
+InputDecoration inputDecoration(
+    {hintText, labelText, prefixIcon, bool profile = false}) {
   return InputDecoration(
     filled: true,
     fillColor: backgroundColour,
@@ -45,10 +35,15 @@ InputDecoration inputDecoration({hintText, labelText, prefixIcon}) {
       borderSide: const BorderSide(color: Colors.red, width: 2),
     ),
     hintText: hintText,
-    hintStyle: defaultText.copyWith(
-      color: Colors.grey.shade400,
-      fontWeight: FontWeight.w400,
-    ),
+    hintStyle: profile
+        ? defaultText.copyWith(
+            color: Colors.grey.shade800,
+            fontWeight: FontWeight.w500,
+          )
+        : defaultText.copyWith(
+            color: Colors.grey.shade400,
+            fontWeight: FontWeight.w400,
+          ),
     focusColor: primaryColour,
     prefixIcon: prefixIcon != null
         ? Icon(

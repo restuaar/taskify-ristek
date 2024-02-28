@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:taskify/providers/page.dart';
 import 'package:taskify/utils/shared.dart';
 
 class AppBarToDoList {
@@ -24,13 +26,20 @@ class AppBarToDoList {
               color: backgroundColour,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: primaryColour,
+            child: Consumer<PageProvider>(
+              builder: (context, taskProvider, child) => IconButton(
+                onPressed: () {
+                  if (title == "My Profile") {
+                    taskProvider.setPage(0);
+                    return;
+                  }
+
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: primaryColour,
+                ),
               ),
             ),
           ),

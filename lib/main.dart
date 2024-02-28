@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:taskify/home.dart';
+import 'package:taskify/models/user.dart';
 import 'package:taskify/providers/page.dart';
 import 'package:taskify/providers/task_provider.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    user = null;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => PageProvider()),
