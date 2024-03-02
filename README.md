@@ -1,6 +1,7 @@
 # Taskify
 
 Taskify adalah aplikasi sederhana yang dirancang untuk membantu dalam mengatur tugas-tugas dan meningkatkan produktivitas.
+
 <p align="center">
   <img src="assets\images\design.png" />
 </p>
@@ -23,3 +24,13 @@ Terakhir, saya menyadari betapa pentingnya mencari ide dan dokumentasi ketika me
 4. [Provider 📱 Simple State Management • Flutter Tutorial](https://youtu.be/uQuxrZE2dqA?si=Tp4gnnEyKLj5V0xq)
 5. [Multi-Provider](https://pub.dev/documentation/provider/latest/provider/MultiProvider-class.html)
 6. [Upload And Save Profile Image Using Flutter And Firebase](https://youtu.be/BjowvNSdWYE?si=KjC5Frd1YtqMGyDL)
+
+**Package Used**
+
+1. [provider](https://pub.dev/packages/provider)
+2. [google_fonts](https://pub.dev/packages/google_fonts)
+3. [google_nav_bar](https://pub.dev/packages/google_nav_bar)
+4. [intl](https://pub.dev/packages/intl)
+5. [image_picker](https://pub.dev/packages/image_picker)
+6. [hive](https://pub.dev/packages/hive)
+7. [hive_flutter](https://pub.dev/packages/hive_flutter)
