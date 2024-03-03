@@ -1,36 +1,41 @@
 // ignore_for_file: prefer_final_fields
 
 import 'package:flutter/foundation.dart';
-import '../models/task.dart';
+import 'package:taskify/utils/database.dart';
+import 'package:taskify/models/task_isar.dart';
 
 class TaskProvider with ChangeNotifier {
-  List<Task> _tasks = [];
+  List<TaskIsar> _tasks = [];
+  late TaskDatabase _taskDatabase;
 
+  TaskProvider() {
+    _taskDatabase = TaskDatabase();
+    fetchTasks();
+  }
 
-  List<Task> get tasks {
+  List<TaskIsar> get tasks {
     return [..._tasks];
   }
 
-  void setTasks(List<Task> tasks) {
-    _tasks = tasks;
-  }
-
-  void addTask(Task task) {
-    _tasks.add(task);
+  void fetchTasks() async {
+    _tasks = await _taskDatabase.fetchTasks();
     sortTasks();
     notifyListeners();
   }
 
-  void updateTask(int index, Task task) {
-    _tasks[index] = task;
-    sortTasks();
-    notifyListeners();
+  void addTask(TaskIsar task) async {
+    await _taskDatabase.addTask(task);
+    fetchTasks();
   }
 
-  void deleteTask(Task task) {
-    _tasks.remove(task);
-    sortTasks();
-    notifyListeners();
+  void updateTask(TaskIsar task) async {
+    await _taskDatabase.updateTask(task);
+    fetchTasks();
+  }
+
+  void deleteTask(TaskIsar task) async {
+    await _taskDatabase.deleteTask(task);
+    fetchTasks();
   }
 
   void sortTasks() {

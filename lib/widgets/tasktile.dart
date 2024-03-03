@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:taskify/models/task_isar.dart';
 import 'package:taskify/providers/task_provider.dart';
 import 'package:taskify/screens/edit_task.dart';
 import 'package:taskify/utils/shared.dart';
-import 'package:taskify/models/task.dart';
 
 class TaskTile extends StatefulWidget {
-  final Task task;
+  final TaskIsar task;
 
   const TaskTile({
     super.key,
@@ -103,8 +103,6 @@ class _TaskTileState extends State<TaskTile> {
                                       setState(() {
                                         widget.task.isCompleted = value!;
                                         taskProvider.updateTask(
-                                          taskProvider.tasks
-                                              .indexOf(widget.task),
                                           widget.task,
                                         );
                                       });

@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:taskify/models/user.dart';
 import 'package:taskify/utils/shared.dart';
@@ -25,12 +26,22 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         backgroundColor: primaryColour,
         appBar: AppBarToDoList.buildAppBar(context, "My Profile"),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
+        body: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.elliptical(64, 46),
+                  topRight: Radius.elliptical(64, 46),
+                ),
+                color: backgroundColour,
+              ),
+            ),
+            SingleChildScrollView(
+              child: Container(
                 width: double.infinity,
-                height: mediaQueryHeight(context) - 100,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.elliptical(64, 46),
@@ -39,7 +50,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: backgroundColour,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 32, left: 24, right: 24),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24, vertical: 32),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -97,7 +109,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         borderRadius: BorderRadius.circular(10),
                         child: DropdownButtonFormField(
                           dropdownColor: backgroundColour,
-                          value: (user != null) ? user!.major : "Ilmu Komputer",
+                          value:
+                              (user != null) ? user!.major : "Ilmu Komputer",
                           items: const [
                             DropdownMenuItem(
                               value: "Ilmu Komputer",
@@ -163,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               return themeData(context, child);
                             },
                           );
-
+        
                           if (pickedDate != null) {
                             String formattedDate =
                                 DateFormat('MMM-d-y').format(pickedDate);
@@ -222,8 +235,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
