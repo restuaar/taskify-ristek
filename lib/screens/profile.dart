@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:taskify/models/user.dart';
 import 'package:taskify/utils/shared.dart';
@@ -55,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Spacer(),
@@ -63,10 +60,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           Spacer(),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 32,
                       ),
-                      LabelText(title: "Name"),
+                      const LabelText(title: "Name"),
                       Material(
                         elevation: 1,
                         borderRadius: BorderRadius.circular(10),
@@ -100,10 +97,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      LabelText(title: "Major"),
+                      const LabelText(title: "Major"),
                       Material(
                         elevation: 1,
                         borderRadius: BorderRadius.circular(10),
@@ -146,10 +143,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      LabelText(title: "Date a Birth"),
+                      const LabelText(title: "Date a Birth"),
                       TextField(
                         controller: dateInput,
                         decoration: inputDecoration(
@@ -196,10 +193,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           }
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      LabelText(title: "Email"),
+                      const LabelText(title: "Email"),
                       Material(
                         elevation: 1,
                         borderRadius: BorderRadius.circular(10),

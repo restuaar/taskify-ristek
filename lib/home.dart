@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -20,8 +18,8 @@ class _HomeState extends State<Home> {
   int _activeIndex = 0;
 
   static final List<Widget> _pageOptions = <Widget>[
-    HomePage(),
-    ProfilePage(),
+    const HomePage(),
+    const ProfilePage(),
   ];
 
   @override

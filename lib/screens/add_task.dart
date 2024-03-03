@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -76,7 +74,7 @@ class _AddTaskState extends State<AddTask> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          LabelText(title: "Title"),
+                          const LabelText(title: "Title"),
                           Material(
                             elevation: 1,
                             borderRadius: BorderRadius.circular(10),
@@ -102,10 +100,10 @@ class _AddTaskState extends State<AddTask> {
                               },
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
-                          LabelText(title: "Description"),
+                          const LabelText(title: "Description"),
                           Material(
                             elevation: 1,
                             borderRadius: BorderRadius.circular(10),
@@ -121,10 +119,10 @@ class _AddTaskState extends State<AddTask> {
                               }),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
-                          LabelText(title: "Category"),
+                          const LabelText(title: "Category"),
                           Row(
                             children: [
                               Expanded(
@@ -142,7 +140,7 @@ class _AddTaskState extends State<AddTask> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 16,
                               ),
                               Expanded(
@@ -162,10 +160,10 @@ class _AddTaskState extends State<AddTask> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
-                          LabelText(title: "Start"),
+                          const LabelText(title: "Start"),
                           Row(
                             children: [
                               Expanded(
@@ -200,7 +198,7 @@ class _AddTaskState extends State<AddTask> {
                                   },
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 16,
                               ),
                               Expanded(
@@ -236,10 +234,10 @@ class _AddTaskState extends State<AddTask> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
-                          LabelText(title: "End"),
+                          const LabelText(title: "End"),
                           Row(
                             children: [
                               Expanded(
@@ -274,7 +272,7 @@ class _AddTaskState extends State<AddTask> {
                                   },
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 16,
                               ),
                               Expanded(
@@ -310,7 +308,7 @@ class _AddTaskState extends State<AddTask> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 28,
                           ),
                           Container(
