@@ -30,7 +30,6 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Container(
                 width: double.infinity,
-                height: mediaQueryHeight(context) - 100,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.elliptical(64, 46),

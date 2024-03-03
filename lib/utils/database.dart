@@ -1,62 +1,55 @@
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:taskify/models/task.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:taskify/models/task_isar.dart';
 
 class TaskDatabase {
-  List<Task> _tasks = [];
-  final _myBox = Hive.box('taskify');
+  static late Isar isar;
 
-  List<Task> get tasks {
-    return [..._tasks];
+  static Future<void> initialize() async {
+    final dir = await getApplicationDocumentsDirectory();
+    isar = await Isar.open(
+      [TaskIsarSchema],
+      directory: dir.path,
+    );
   }
 
-  set tasks (List<Task> tasks) {
-    _tasks = tasks;
+  final List<TaskIsar> currentTasks = [];
+
+  Future<List<TaskIsar>> addTask(TaskIsar task) async {
+    final newTask = TaskIsar()
+      ..title = task.title
+      ..description = task.description
+      ..startDate = task.startDate
+      ..startTime = task.startTime
+      ..endDate = task.endDate
+      ..endTime = task.endTime
+      ..category = task.category
+      ..isCompleted = task.isCompleted;
+    await isar.writeTxn(() => isar.taskIsars.put(newTask));
+    return await fetchTasks();
   }
 
-  void updateDatabase(List<Task> tasks) async {
-    print("test 1");
-    _tasks = tasks;
-    print("test 2");
-    await _myBox.put('tasks', _tasks);
-    print("test 3");
+  Future<List<TaskIsar>> fetchTasks() async {
+    final tasks = await isar.taskIsars.where().findAll();
+    return tasks;
   }
 
-  void loadDatabase() {
-    _tasks = _myBox.get('tasks');
+  Future<void> updateTask(TaskIsar task) async {
+    final existingTask = await isar.taskIsars.get(task.id);
+    if (existingTask != null) {
+      existingTask.title = task.title;
+      existingTask.description = task.description;
+      existingTask.startDate = task.startDate;
+      existingTask.startTime = task.startTime;
+      existingTask.endDate = task.endDate;
+      existingTask.endTime = task.endTime;
+      existingTask.category = task.category;
+      existingTask.isCompleted = task.isCompleted;
+      await isar.writeTxn(() => isar.taskIsars.put(existingTask));
+    }
   }
 
-  void createInitialDatabase() {
-    _tasks = [
-      Task(
-        title: "Task 1",
-        description: "Description 1",
-        startDate: "2022-01-01",
-        startTime: "09:00",
-        endDate: "2022-01-02",
-        endTime: "05:00",
-        category: "Category 1",
-        isCompleted: false,
-      ),
-      Task(
-        title: "Task 2",
-        description: "Description 2",
-        startDate: "2022-01-03",
-        startTime: "10:00",
-        endDate: "2022-01-04",
-        endTime: "06:00",
-        category: "Category 2",
-        isCompleted: false,
-      ),
-      Task(
-        title: "Task 3",
-        description: "Description 3",
-        startDate: "2022-01-05",
-        startTime: "11:00",
-        endDate: "2022-01-06",
-        endTime: "07:00 PM",
-        category: "Category 3",
-        isCompleted: false,
-      ),
-    ];
+  Future<void> deleteTask(TaskIsar task) async {
+    await isar.writeTxn(() => isar.taskIsars.delete(task.id));
   }
 }

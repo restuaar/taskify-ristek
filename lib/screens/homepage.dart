@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:taskify/models/task.dart';
+import 'package:taskify/models/task_isar.dart';
 import 'package:taskify/models/user.dart';
 import 'package:taskify/providers/task_provider.dart';
 import 'package:taskify/widgets/appbar.dart';
@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String? searchValue;
   String name = "User";
-  List<Task> tasks = [];
+  List<TaskIsar> tasks = [];
 
   @override
   void initState() {

@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:taskify/models/task_isar.dart';
 import 'package:taskify/providers/task_provider.dart';
 import 'package:taskify/utils/shared.dart';
-import 'package:taskify/models/task.dart';
 import 'package:taskify/widgets/labeltext.dart';
 import 'package:taskify/widgets/todolistbar.dart';
 
 class EditTask extends StatefulWidget {
-  final Task task;
+  final TaskIsar task;
   const EditTask({super.key, required this.task});
 
   @override
@@ -40,7 +40,7 @@ class _EditTaskState extends State<EditTask> {
 
   @override
   Widget build(BuildContext context) {
-    Task task = widget.task;
+    TaskIsar task = widget.task;
 
     return SafeArea(
       child: Consumer<TaskProvider>(
@@ -347,19 +347,18 @@ class _EditTaskState extends State<EditTask> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     if (_formKeyEdit.currentState!.validate()) {
-                                      Task updateTask = Task(
-                                        title: _title,
-                                        description: _description,
-                                        startDate: dateInputStart.text,
-                                        startTime: timeInputStart.text,
-                                        endDate: dateInputEnd.text,
-                                        endTime: timeInputEnd.text,
-                                        category: task.category,
-                                        isCompleted: task.isCompleted,
-                                      );
+                                      TaskIsar updateTask = TaskIsar()
+                                        ..id = task.id
+                                        ..title = _title
+                                        ..description = _description
+                                        ..startDate = dateInputStart.text
+                                        ..startTime = timeInputStart.text
+                                        ..endDate = dateInputEnd.text
+                                        ..endTime = timeInputEnd.text
+                                        ..category = task.category
+                                        ..isCompleted = task.isCompleted;
 
                                       taskProvider.updateTask(
-                                        taskProvider.tasks.indexOf(task),
                                         updateTask,
                                       );
 

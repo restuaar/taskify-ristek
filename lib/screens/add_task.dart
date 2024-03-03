@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:taskify/models/task_isar.dart';
 import 'package:taskify/providers/task_provider.dart';
 import 'package:taskify/utils/shared.dart';
-import 'package:taskify/models/task.dart';
 import 'package:taskify/widgets/categoryinput.dart';
 import 'package:taskify/widgets/labeltext.dart';
 import 'package:taskify/widgets/todolistbar.dart';
@@ -323,15 +323,16 @@ class _AddTaskState extends State<AddTask> {
                             child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  Task newTask = Task(
-                                      title: _title,
-                                      description: _description,
-                                      startDate: dateInputStart.text,
-                                      startTime: timeInputStart.text,
-                                      endDate: dateInputEnd.text,
-                                      endTime: timeInputEnd.text,
-                                      category: _category,
-                                      isCompleted: false);
+                                  TaskIsar newTask = TaskIsar()
+                                    ..title = _title
+                                    ..description = _description
+                                    ..startDate = dateInputStart.text
+                                    ..startTime = timeInputStart.text
+                                    ..endDate = dateInputEnd.text
+                                    ..endTime = timeInputEnd.text
+                                    ..category = _category
+                                    ..isCompleted = false;
+
 
                                   taskProvider.addTask(newTask);
 
