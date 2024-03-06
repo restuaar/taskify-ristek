@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_final_fields
-
 import 'package:flutter/foundation.dart';
 import 'package:taskify/utils/database.dart';
 import 'package:taskify/models/task_isar.dart';

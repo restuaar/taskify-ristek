@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taskify/models/task_isar.dart';
@@ -47,10 +45,10 @@ class _HomePageState extends State<HomePage> {
       appBar: MyAppBar.buildAppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddTask(),
+                            builder: (context) => const AddTask(),
                           ),
                         );
                       },
@@ -101,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         children: [
                           Icon(Icons.add, color: backgroundColour, size: 18),
-                          SizedBox(width: 4),
+                          const SizedBox(width: 4),
                           Text(
                             "Add Task",
                             style: defaultText.copyWith(
@@ -116,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               TextField(
                 decoration: InputDecoration(
                   filled: true,
@@ -146,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                   });
                 },
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Consumer<TaskProvider>(builder: (context, taskProvider, child) {
                 tasks = taskProvider.tasks;
                 filterTasks();
